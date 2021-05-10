@@ -1,0 +1,47 @@
+scalar Upload
+
+type User {
+  user_id: String!
+  name: String!
+  posts: [Post]
+}
+
+type Post {
+  post_id: Int!
+  user_id: String!
+  description: String!
+  src: String!
+  date_stamp: String!
+  comments: [Comment]
+}
+
+type Comment {
+  comment_id: Int!
+  post_id: Int!
+  message: String!
+  date_stamp: String!
+}
+
+type PostsData {
+  page: Int!
+  total_pages: Int!
+  posts: [Post]
+}
+
+type Query {
+  profile: User
+  allPosts(page: Int!): PostsData
+  allUsers: [User]
+  userPosts(user_id: String!, page: Int!): PostsData
+}
+
+type Mutation {
+  addUser(name: String!, password: String!): User
+  deleteUser: String
+
+  addPost(file: Upload!, description: String): Post
+  deletePost(postId: Int!): String
+
+  addComment(text: String!, post_id: String!): Comment
+  deleteComment(comment_id: String!): String
+}
